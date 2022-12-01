@@ -51,7 +51,8 @@ class Feedback extends React.Component {
         <button type="button" onClick={this.badIncrement}>Bad</button>
         </div>
         <p>Statistic</p> 
-        { (this.state.good + this.state.neutral + this.state.bad) = 0 ?
+        
+        {this.state.good || this.state.neutral || this.state.bad > 0 ?
         <div className="feedbackCounts">
             <p>Good: {this.state.good}</p>
             <p>Neutral: {this.state.neutral}</p>
