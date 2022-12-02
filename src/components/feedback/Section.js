@@ -1,6 +1,8 @@
 import React from "react";
 
-const Selection = () => {
-    return (<section></section>)}
+const Section = ({title}) => {
+    return (<section>{title}</section>)
+}
+   
 
-    export default Selection
+    export default Section
