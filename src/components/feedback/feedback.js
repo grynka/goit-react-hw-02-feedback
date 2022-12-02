@@ -1,4 +1,7 @@
 import React from "react";
+import Statistics from "./Statistics";
+import FeedbackOptions from "./FeedbackOptions";
+import Section from "./Section";
 
 class Feedback extends React.Component {
     state = {
@@ -6,61 +9,60 @@ class Feedback extends React.Component {
         neutral: 0,
         bad: 0
     }
-    
 
-    goodIncrement = () => {
-        this.setState(prevState => ({
-            good: prevState.good + 1,
-        }))
-    }
+    onLeaveFeedback = fedback => {
+        // eslint-disable-next-line default-case
+        switch (fedback) {
+            case "good":
+                this.setState(prevState => ({
+                    good: prevState.good + 1,
+                }))
+                break;
+                case "neutral":
+                    this.setState(prevState => ({
+                        neutral: prevState.neutral + 1,
+            }))
+            break;
+            case "bad":
+                this.setState(prevState => ({
+                    bad: prevState.bad + 1,
+                    
+                }))
+            }   
+        }
 
-    neutralIncrement = () => {
-        this.setState(prevState => ({
-            neutral: prevState.neutral + 1,
-        }))
-    }
-
-    badIncrement = () => {
-        this.setState(prevState => ({
-            bad: prevState.bad + 1,
-            
-        }))
-        this.countPositiveFeedbackPercentage() 
-    }
+  
 
     countTotalFeedback = () => {
-         return (
-            <p>Total: {this.state.good + this.state.neutral + this.state.bad}</p>)
+        console.log(Object.keys(this.state))
+        const total = this.state.good + this.state.neutral + this.state.bad
+         return total
     
     }
 
     countPositiveFeedbackPercentage = () => {
-        console.log(this.state.bad)
-        return(<p>Positive feedback: {
-           this.state.good ? Math.round(((this.state.good/(this.state.good + this.state.neutral + this.state.bad))*100)) : 0 }
-            %</p>)
+        return(this.state.good ? Math.round(((this.state.good/(this.state.good + this.state.neutral + this.state.bad))*100)) : 0 )
     } 
+
 
    render() {
     return (
-        <div className="Feedback">        
-        <p>Please leave feedback</p>
-        <div className="feedbackControls">
-        <button type="button" onClick={this.goodIncrement}>Good</button>
-        <button type="button" onClick={this.neutralIncrement}>Neutral</button>
-        <button type="button" onClick={this.badIncrement}>Bad</button>
-        </div>
-        <p>Statistic</p> 
-        
-        {this.state.good || this.state.neutral || this.state.bad > 0 ?
-        <div className="feedbackCounts">
-            <p>Good: {this.state.good}</p>
-            <p>Neutral: {this.state.neutral}</p>
-            <p>Bad: {this.state.bad}</p>
-             {this.countTotalFeedback()}
-             {this.countPositiveFeedbackPercentage()}
-        </div> : <p>No feedback given</p> }
-        </div>
+        <>
+<Section title="Please leave feedback">
+        <FeedbackOptions
+        options = {Object.keys(this.state)}
+        onLeaveFeedback = {this.onLeaveFeedback}
+ />
+        </Section>
+        <Section title="Please leave feedback">
+        <Statistics 
+        good={this.state.good} 
+        neutral={this.state.neutral} 
+        bad={this.state.bad} 
+        total={this.countTotalFeedback()} 
+        positivePercentage={this.countPositiveFeedbackPercentage()} 
+            />
+</Section></>
     )
    }
 }
