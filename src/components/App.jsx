@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import Section from "./feedback/Section";
-import Statistics from "./feedback/Statistics";
+import Section from "./section/Section";
+import Statistics from "./statistics/Statistics";
 import FeedbackOptions from "./feedback/FeedbackOptions"
-import Notification from "./feedback/Notification";
+import Notification from "./notification/Notification";
 
 
 
