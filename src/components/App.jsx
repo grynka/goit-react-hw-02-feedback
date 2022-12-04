@@ -24,7 +24,6 @@ onLeaveFeedback = fedback => {
 
 
 countTotalFeedback = () => {
-    console.log(Object.keys(this.state))
     const total = this.state.good + this.state.neutral + this.state.bad
      return total
 
